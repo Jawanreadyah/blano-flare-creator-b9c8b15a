@@ -1,0 +1,204 @@
+@import url('https://api.fontshare.com/v2/css?f[]=clash-display@700&display=swap');
+@import url('https://api.fontshare.com/v2/css?f[]=general-sans@400,600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: "General Sans", system-ui, sans-serif;
+    background: #000000;
+    color: #FFFFFF;
+    letter-spacing: -0.02em;
+    cursor: none;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "Clash Display", system-ui, sans-serif;
+  }
+
+  /* Custom Cursor */
+  .cursor-dot,
+  .cursor-dot-outline {
+    pointer-events: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+    z-index: 9999;
+  }
+
+  .cursor-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #FFFFFF;
+  }
+
+  .cursor-dot-outline {
+    width: 40px;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.1);
+    transition: transform 0.2s ease-in-out;
+  }
+
+  .cursor-hover .cursor-dot-outline {
+    transform: translate(-50%, -50%) scale(1.5);
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+
+  /* Hide cursor on touch devices */
+  @media (hover: none) {
+    .cursor-dot,
+    .cursor-dot-outline {
+      display: none;
+    }
+  }
+}
+
+/* Smooth Scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom Animations */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0px); }
+}
+
+.float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Gradient Text */
+.gradient-text {
+  background: linear-gradient(to right, #FFFFFF, #808080);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Hover Line Effect */
+.hover-line {
+  position: relative;
+}
+
+.hover-line::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  bottom: -2px;
+  left: 0;
+  background-color: #FF4D4D;
+  transform: scaleX(0);
+  transform-origin: bottom right;
+  transition: transform 0.3s ease;
+}
+
+.hover-line:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+/* Service Card Hover */
+.service-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.service-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom right, rgba(255,77,77,0.1), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.service-card:hover::after {
+  opacity: 1;
+}
+
+/* Stats Counter */
+.stats-item {
+  @apply relative px-8 py-4;
+}
+
+.stats-item::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 40%;
+  background: rgba(255,255,255,0.1);
+}
+
+.stats-item:last-child::after {
+  display: none;
+}
+
+/* Project Card */
+.project-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.8));
+  z-index: 1;
+}
+
+/* Neon Text Effect */
+.neon-text {
+  color: #fff;
+  text-shadow: 
+    0 0 5px #fff,
+    0 0 10px #fff,
+    0 0 20px #fff;
+  animation: neon-pulse 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes neon-pulse {
+  from {
+    text-shadow: 
+      0 0 5px #fff,
+      0 0 10px #fff,
+      0 0 20px #fff;
+  }
+  to {
+    text-shadow: 
+      0 0 2.5px #fff,
+      0 0 5px #fff,
+      0 0 10px #fff;
+  }
+}
+
+/* Marquee Animation */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(calc(-50% - var(--gap)/2)); }
+}
+
+@keyframes marquee-vertical {
+  from { transform: translateY(0); }
+  to { transform: translateY(calc(-50% - var(--gap)/2)); }
+}
+
+.animate-marquee {
+  animation: marquee var(--duration) linear infinite;
+}
+
+.animate-marquee-vertical {
+  animation: marquee-vertical var(--duration) linear infinite;
+}
